@@ -6,7 +6,7 @@
 /*   By: kbahrar <kbahrar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 21:18:01 by kbahrar           #+#    #+#             */
-/*   Updated: 2019/11/27 19:11:38 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/11/29 17:54:13 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,11 @@ void		ft_freeall(char **line, char **read, t_parse *prs)
 	}
 }
 
-static int	get_line(t_vars *lst, char **line)
+static int	get_line(char **line)
 {
-	char *tmp;
-
 	if (!(*line = ft_readline(prompt())))
 		return (-1);
-	tmp = *line;
-	*line = ft_strtrim(tmp);
-	free(tmp);
-	quots(line);
-	check_pipe(line);
-	modifier_line(lst, line);
+	printf("<<< %s >>>> \n", *line);
 	if (!*line || !(*line)[0])
 	{
 		if (*line && !(*line)[0])
@@ -80,7 +73,7 @@ int			main(void)
 	line = NULL;
 	while (1)
 	{
-		if (get_line(vars, &line) < 0)
+		if (get_line(&line) < 0)
 		{
 			ft_strdel(save_prompt(NULL));
 			exit(0);

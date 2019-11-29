@@ -6,7 +6,7 @@
 /*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 15:17:12 by oboualla          #+#    #+#             */
-/*   Updated: 2019/11/28 19:28:28 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/11/29 17:53:27 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,13 @@ char			*exit_readline(t_objet **objet, t_hist **lst, int flag)
 		line = ft_strdup((*objet)->line);
 		add_hist(ft_strdup(line), lst);
 	}
+	if (line && ft_strcmp((*objet)->prompt, "dquote")
+			&& ft_strcmp((*objet)->prompt, "pipe"))
+		ctrl_c(&line);
 	stock_hist(lst);
 	*save_objet(NULL) = NULL;
 	ft_memdel((void**)&(*objet)->tc);
 	ft_memdel((void**)objet);
-	ctrl_c(&line);
 	return (line);
 }
 

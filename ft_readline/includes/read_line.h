@@ -6,7 +6,7 @@
 /*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 03:43:41 by oboualla          #+#    #+#             */
-/*   Updated: 2019/11/28 19:33:30 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/11/29 17:46:05 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define READ_LINE_H
 # include "../../libft/libft.h"
 # include "../get_next_line/get_next_line.h"
+# include "../../parse/parse.h"
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <termios.h>
@@ -51,7 +52,6 @@ typedef struct stat		t_stat;
 typedef struct s_objet	t_objet;
 typedef struct s_hist	t_hist;
 typedef unsigned short	t_ushort;
-typedef struct s_vars	t_vars;
 
 struct		s_hist
 {
@@ -93,13 +93,6 @@ struct		s_curpos
 {
 	t_ushort	x;
 	t_ushort	y;
-};
-
-struct	s_vars
-{
-	char			*nom;
-	char			*valeur;
-	struct s_vars	*next;
 };
 
 char		*ft_getenv(t_vars *lst, char *nom);

@@ -6,7 +6,7 @@
 /*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:44:37 by oboualla          #+#    #+#             */
-/*   Updated: 2019/11/28 21:53:24 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/11/29 20:42:55 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,13 @@ void			init_hist(t_hist **lst)
 	close(fd);
 }
 
-void			print_history(char *line, int fd)
+static void		print_history(char *line, int fd)
 {
 	size_t i;
 
 	i = 0;
 	ft_putstr_fd("$>:", fd);
-	while (line[i])
-	{
-		if (line[i] == '\n')
-			ft_putchar_fd('\\', fd);
-		ft_putchar_fd(*line, fd);
-		i++;
-	}
+	ft_putstr_fd(line, fd);
 }
 
 void			stock_hist(t_hist **lst)
@@ -86,8 +80,7 @@ void			stock_hist(t_hist **lst)
 	while (*lst)
 	{
 		tmp = (*lst)->back;
-		//ft_putendl_fd((*lst)->line, fd);
-		print_history((*lst)->line, fd22);
+		print_history((*lst)->line, fd);
 		ft_strdel(&(*lst)->line);
 		ft_memdel((void**)lst);
 		*lst = tmp;

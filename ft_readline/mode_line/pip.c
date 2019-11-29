@@ -6,7 +6,7 @@
 /*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 19:39:53 by oboualla          #+#    #+#             */
-/*   Updated: 2019/11/28 19:34:41 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/11/29 17:53:31 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ int			check_pipe(char **line)
 		return (0);
 	src = ft_strlen(*line);
 	if ((*line)[src - 1] == '|')
+	{
 		complet_pipe(line);
+		check_pipe(line);
+	}
 	return (1);
 }

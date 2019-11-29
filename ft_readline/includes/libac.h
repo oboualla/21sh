@@ -6,7 +6,7 @@
 /*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 00:35:26 by oboualla          #+#    #+#             */
-/*   Updated: 2019/11/25 21:27:19 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/11/29 17:29:52 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,9 @@
 # include "read_line.h"
 # define ONLY_DIR    1
 # define ONLY_CMD    2
-# define ALL         3
+# define ALL         32
 
 typedef struct s_ac		t_ac;
-typedef struct s_vars	t_vars;
-
-struct	s_vars
-{
-	char			*nom;
-	char			*valeur;
-	struct s_vars	*next;
-};
 
 struct	s_ac
 {

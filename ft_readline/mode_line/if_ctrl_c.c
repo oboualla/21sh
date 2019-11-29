@@ -6,7 +6,7 @@
 /*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 16:45:33 by oboualla          #+#    #+#             */
-/*   Updated: 2019/11/28 19:33:39 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/11/29 18:18:30 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,6 @@ void	ctrl_c(char **line)
 	check_pipe(line);
 	modifier_line(lst, line);
 	if (!*line || !(*line)[0])
-	{
-		if (*line)
-			ft_strdel(line);
 		return ;
-	}
 	return ;
 }

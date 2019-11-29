@@ -6,7 +6,7 @@
 /*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 22:47:43 by oboualla          #+#    #+#             */
-/*   Updated: 2019/11/28 21:52:34 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/11/29 20:56:14 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,23 @@ static int		ft_make_line(char **rest, char **line, char *sep)
 	i = 0;
 	if (!*rest)
 		return (0);
-	if (!(ptr = ft_strstr(*rest, sep)))
+	while ((*rest)[i] && sep[i] && (*rest)[i] == sep[i])
+		    i++;
+	if (!(ptr = ft_strstr(&(*rest)[i], sep)))
 	{
 		*line = *rest;
 		*rest = NULL;
 	}
 	else
 	{
-		ptr[i++] = '\0';
-		*line = ft_strdup(*rest);
+		printf("read : \"%s\"\n", *rest);
+		ptr[0] = '\0';
+		printf("line is : \"%s\"\n", &(*rest)[i]);
+		*line = ft_strdup(&(*rest)[i]);
+		i = 1;
 		while (ptr[i] && sep[i] && ptr[i] == sep[i])
 			i++;
+		printf("rest is : \"%s\"\n-_-_-_-_-_-_-_-_-_-_\n", &ptr[i]);
 		ptr = ft_strdup(&ptr[i]);
 		ft_strdel(rest);
 		*rest = ptr;
@@ -105,16 +111,14 @@ int				get_next_line(const int fd, char **line, char *sep)
 	t_reste			*ptr_surn;
 	char			*buff;
 	char			*ptr;
-	int				nbread;
 
-	nbread = 0;
 	if (read(fd, NULL, 0) < 0 || !line || fd > 4096)
 		return (-1);
 	if (!(buff = ft_strnew(BUFF_SIZE)))
 		return (-1);
 	ptr_surn = ft_check_fd(fd, &list);
 	while (!ft_strstr(ptr_surn->reste, sep) &&
-			(nbread = read(fd, buff, BUFF_SIZE)))
+			(read(fd, buff, BUFF_SIZE)))
 	{
 		ptr = ptr_surn->reste;
 		ptr_surn->reste = ft_strjoin(ptr, buff);
@@ -125,4 +129,15 @@ int				get_next_line(const int fd, char **line, char *sep)
 	if (!(ft_make_line(&ptr_surn->reste, &*line, sep)))
 		return (ft_dellst(ptr_surn, &list));
 	return (1);
+}
+
+int main()
+{
+	char *line;
+	int fd = open("/Users/oboualla/.21sh_history", O_RDONLY);
+	while (get_next_line(fd, &line, "$>:") > 0)
+	{
+		printf("\t\tret line :==>\"\"%s\"\"\n", line);
+		free(line);
+	}
 }
