@@ -51,12 +51,10 @@ char		ret_link(char *str, int *i)
 
 int			ret_fd(char *str, int *i)
 {
-	int		tot;
 	int		j;
 	char	*snum;
 	int		fd;
 
-	tot = 0;
 	if (str[*i] != '&')
 		return (-1000);
 	(*i)++;

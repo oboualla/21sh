@@ -25,6 +25,7 @@
 # include <term.h>
 # include <sys/ioctl.h>
 # include <dirent.h>
+# include <signal.h>
 # define KP 4283163
 # define KD 4348699
 # define KL 4479771

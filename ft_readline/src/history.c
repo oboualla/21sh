@@ -54,9 +54,6 @@ void			init_hist(t_hist **lst)
 
 static void		print_history(char *line, int fd)
 {
-	size_t i;
-
-	i = 0;
 	ft_putstr_fd("$>:", fd);
 	ft_putstr_fd(line, fd);
 }

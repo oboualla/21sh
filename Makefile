@@ -23,7 +23,8 @@ $(NAME): $(OBJ)
 	make -C libft/
 	make -C ft_readline/
 	@ar rc $(LIBS) $(OBJ)
-	gcc -Wall -Wextra -Werror $(LIBS) $(LIBF) $(LIBR) -o $(NAME) -ltermcap
+	@ranlib $(LIBS)
+	gcc -Wall -Wextra -Werror $(LIBS) $(LIBR) $(LIBF) -o $(NAME) -ltermcap
 
 clean:
 	rm -rf $(OBJ)

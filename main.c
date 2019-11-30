@@ -50,7 +50,6 @@ static int	get_line(char **line)
 {
 	if (!(*line = ft_readline(prompt())))
 		return (-1);
-	printf("<<< %s >>>> \n", *line);
 	if (!*line || !(*line)[0])
 	{
 		if (*line && !(*line)[0])
@@ -64,7 +63,6 @@ int			main(void)
 {
 	extern char		**environ;
 	char			*line;
-	char			*read;
 	t_parse			*prs;
 	t_vars			*vars;
 
@@ -82,9 +80,8 @@ int			main(void)
 		{
 			prs = parse_line(line);
 			exec(prs, &vars);
-			ft_freeall(&line, &read, prs);
+			ft_freeall(&line, NULL, prs);
 		}
 		ft_strdel(save_prompt(NULL));
-		*save_prompt(NULL) = NULL;
 	}
 }

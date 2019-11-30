@@ -15,6 +15,8 @@
 # include "libft/libft.h"
 # include "ft_readline/includes/read_line.h"
 # include "parse/parse.h"
+# include <sys/types.h>
+# include <sys/wait.h>
 # define SETENV 2
 # define UNSETENV 4
 # define BGREEN "\033[1;32m"
