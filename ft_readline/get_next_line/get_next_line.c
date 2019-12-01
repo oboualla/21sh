@@ -25,19 +25,16 @@ static int		ft_make_line(char **rest, char **line, char *sep)
 		    i++;
 	if (!(ptr = ft_strstr(&(*rest)[i], sep)))
 	{
-		*line = *rest;
-		*rest = NULL;
+		*line = ft_strdup(&(*rest)[i]);
+		ft_strdel(rest);
 	}
 	else
 	{
-//		printf("read : \"%s\"\n", *rest);
 		ptr[0] = '\0';
-//		printf("line is : \"%s\"\n", &(*rest)[i]);
 		*line = ft_strdup(&(*rest)[i]);
 		i = 1;
 		while (ptr[i] && sep[i] && ptr[i] == sep[i])
 			i++;
-//		printf("rest is : \"%s\"\n-_-_-_-_-_-_-_-_-_-_\n", &ptr[i]);
 		ptr = ft_strdup(&ptr[i]);
 		ft_strdel(rest);
 		*rest = ptr;
@@ -124,20 +121,12 @@ int				get_next_line(const int fd, char **line, char *sep)
 		ptr_surn->reste = ft_strjoin(ptr, buff);
 		ft_strdel(&ptr);
 		ft_memset((void*)buff, 0, BUFF_SIZE);
+		if (ft_strstr(ptr_surn->reste, sep) &&
+			ft_strstr(ft_strstr(ptr_surn->reste, sep), sep))
+			break ;
 	}
 	ft_strdel(&buff);
 	if (!(ft_make_line(&ptr_surn->reste, &*line, sep)))
 		return (ft_dellst(ptr_surn, &list));
 	return (1);
 }
-/*
-int main()
-{
-	char *line;
-	int fd = open("/Users/oboualla/.21sh_history", O_RDONLY);
-	while (get_next_line(fd, &line, "$>:") > 0)
-	{
-		printf("\t\tret line :==>\"\"%s\"\"\n", line);
-		free(line);
-	}
-}*/

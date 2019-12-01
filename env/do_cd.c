@@ -59,7 +59,7 @@ static char	*mod_path(char *path, char **env)
 	int	i;
 
 	i = 0;
-	if (!path)
+	if (!path && env)
 	{
 		while (env[i])
 		{
@@ -68,7 +68,7 @@ static char	*mod_path(char *path, char **env)
 			i++;
 		}
 	}
-	else
+	else if (env)
 	{
 		while (env[i])
 		{

@@ -20,8 +20,8 @@ LIBS = 21sh.a
 all:$(NAME)
 
 $(NAME): $(OBJ)
-	make -C libft/
-	make -C ft_readline/
+	@make -C libft/
+	@make -C ft_readline/
 	@ar rc $(LIBS) $(OBJ)
 	@ranlib $(LIBS)
 	gcc -Wall -Wextra -Werror $(LIBS) $(LIBR) $(LIBF) -o $(NAME) -ltermcap
@@ -38,7 +38,7 @@ fclean: clean
 	make fclean -C ft_readline/
 
 re: fclean all
-	make re -C libft/
+	@make re -C libft/
 
 %.o : %.c
-	gcc -Wall -Wextra -Werror -c $< -o $@
+	@gcc -Wall -Wextra -Werror -c $< -o $@

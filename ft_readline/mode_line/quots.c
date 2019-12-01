@@ -58,11 +58,11 @@ int			quots(char **line)
 		return (-1);
 	while ((*line)[i])
 	{
-		if (((*line)[i] == '"' && ((*line)[i - 1] != '\\')) && !(balance & 1))
+		if (((*line)[i] == '"' && ((*line)[i - 1] != '\\')) && (!(balance & 1) && !(balance & 2)))
 			balance++;
 		else if (((*line)[i] == '"' && (*line)[i - 1] != '\\') && (balance & 1))
 			balance--;
-		if (((*line)[i] == '\'' && (*line)[i - 1] != '\\') && !(balance & 2))
+		if (((*line)[i] == '\'' && (*line)[i - 1] != '\\') && (!(balance & 2) && !(balance & 1)))
 			balance += 2;
 		else if (((*line)[i] == '\'' &&
 		(*line)[i - 1] != '\\') && (balance & 2))
