@@ -72,9 +72,9 @@ int				print_ac(t_ac *ac, t_objet *obj, size_t len)
 	t_curpos	oldpos;
 
 	rd = obj->rd;
-	oldpos = get_curpos(obj->rd);
+	oldpos = get_curpos(obj->line, obj->rd);
 	rd.curpos = ft_strlen(obj->line);
-	newpos = get_curpos(rd);
+	newpos = get_curpos(obj->line, rd);
 	newpos.x = 1;
 	newpos.y++;
 	curs_newpos(oldpos, newpos, obj->tc);

@@ -19,9 +19,9 @@ void	hm(t_objet *obj)
 
 	if (obj->rd.curpos > 0)
 	{
-		oldpos = get_curpos(obj->rd);
+		oldpos = get_curpos(obj->line, obj->rd);
 		obj->rd.curpos = 0;
-		newpos = get_curpos(obj->rd);
+		newpos = get_curpos(obj->line, obj->rd);
 		curs_newpos(oldpos, newpos, obj->tc);
 	}
 }
@@ -33,9 +33,9 @@ void	ed(t_objet *obj)
 
 	if (obj->rd.curpos < ft_strlen(obj->line))
 	{
-		old_pos = get_curpos(obj->rd);
+		old_pos = get_curpos(obj->line, obj->rd);
 		obj->rd.curpos = ft_strlen(obj->line);
-		new_pos = get_curpos(obj->rd);
+		new_pos = get_curpos(obj->line, obj->rd);
 		curs_newpos(old_pos, new_pos, obj->tc);
 	}
 }
@@ -48,9 +48,9 @@ void	bs(t_objet *obj)
 
 	if (obj->rd.curpos && ft_strlen(obj->line))
 	{
-		old_pos = get_curpos(obj->rd);
+		old_pos = get_curpos(obj->line, obj->rd);
 		obj->rd.curpos--;
-		new_pos = get_curpos(obj->rd);
+		new_pos = get_curpos(obj->line, obj->rd);
 		i = obj->rd.curpos - 1;
 		while (obj->line[++i])
 			obj->line[i] = obj->line[i + 1];

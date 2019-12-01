@@ -12,14 +12,14 @@
 
 #include "../includes/read_line.h"
 
-void	move_curs(t_readl *rd, t_capab *tc, size_t bufsize)
+static void	move_curs(char *line, t_readl *rd, t_capab *tc, size_t bufsize)
 {
 	t_curpos oldpos;
 	t_curpos newpos;
 
-	oldpos = get_curpos(*rd);
+	oldpos = get_curpos(line, *rd);
 	rd->curpos += (bufsize - 1);
-	newpos = get_curpos(*rd);
+	newpos = get_curpos(line, *rd);
 	curs_newpos(oldpos, newpos, tc);
 }
 
@@ -29,7 +29,7 @@ void	l_print(char *line, t_readl *rd, t_capab *tc, size_t bufsize)
 
 	if ((rd->curpos + 1) == ft_strlen(line))
 	{
-		cp = get_curpos(*rd);
+		cp = get_curpos(line, *rd);
 		ft_putchar(line[(*rd).curpos]);
 		if (cp.x == rd->ws_col)
 			to_next_line(tc, 0);
@@ -38,7 +38,7 @@ void	l_print(char *line, t_readl *rd, t_capab *tc, size_t bufsize)
 		reprint(line, *rd, tc);
 	rd->curpos++;
 	if (bufsize > 1)
-		move_curs(rd, tc, bufsize);
+		move_curs(line, rd, tc, bufsize);
 }
 
 void	bs_print(char *line, t_readl rd, t_capab *tc)
@@ -48,7 +48,7 @@ void	bs_print(char *line, t_readl rd, t_capab *tc)
 	size_t		i;
 
 	i = rd.curpos;
-	cur_pos = get_curpos(rd);
+	cur_pos = get_curpos(line, rd);
 	oldpos = cur_pos;
 	ft_putstr(tc->hide_curs);
 	ft_putstr(tc->clear_line);
@@ -74,7 +74,7 @@ void	reprint(char *line, t_readl rd, t_capab *tc)
 {
 	t_curpos	old_pos;
 
-	old_pos = get_curpos(rd);
+	old_pos = get_curpos(line, rd);
 	bs_print(line, rd, tc);
 	if (old_pos.x != rd.ws_col)
 		ft_putstr(tc->move_right);

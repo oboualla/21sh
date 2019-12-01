@@ -46,8 +46,8 @@ static void	couper_line(t_objet *obj, t_readl *rd)
 	t_curpos	newpos;
 	char		*rest;
 
-	curpos = get_curpos(obj->rd);
-	newpos = get_curpos(*rd);
+	curpos = get_curpos(obj->line, obj->rd);
+	newpos = get_curpos(obj->line, *rd);
 	obj->copier = ft_strndup(&obj->line[rd->curpos],
 	(obj->rd.curpos - rd->curpos));
 	rest = ft_strdup(&obj->line[obj->rd.curpos]);

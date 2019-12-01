@@ -21,13 +21,13 @@ static void	alt_l(t_objet *obj)
 	if ((obj->rd.curpos != 0))
 	{
 		rd = &obj->rd;
-		curpos = get_curpos(*rd);
+		curpos = get_curpos(obj->line, *rd);
 		rd->curpos--;
 		while (rd->curpos > 0 && obj->line[rd->curpos] == ' ')
 			rd->curpos--;
 		while (rd->curpos > 0 && obj->line[rd->curpos - 1] != ' ')
 			rd->curpos--;
-		newpos = get_curpos(*rd);
+		newpos = get_curpos(obj->line, *rd);
 		curs_newpos(curpos, newpos, obj->tc);
 	}
 	else
@@ -43,12 +43,12 @@ static void	alt_r(t_objet *obj)
 	rd = &obj->rd;
 	if ((rd->curpos != ft_strlen(obj->line)))
 	{
-		curpos = get_curpos(*rd);
+		curpos = get_curpos(obj->line, *rd);
 		while (obj->line[rd->curpos] && obj->line[rd->curpos] != ' ')
 			obj->rd.curpos++;
 		while (obj->line[rd->curpos] && obj->line[rd->curpos] == ' ')
 			obj->rd.curpos++;
-		newpos = get_curpos(*rd);
+		newpos = get_curpos(obj->line, *rd);
 		curs_newpos(curpos, newpos, obj->tc);
 	}
 	else
@@ -60,7 +60,7 @@ static void	alt_p(t_objet *obj)
 	t_curpos curpos;
 	t_curpos newpos;
 
-	curpos = get_curpos(obj->rd);
+	curpos = get_curpos(obj->line, obj->rd);
 	if (curpos.y > 1)
 	{
 		newpos = curpos;
@@ -86,9 +86,9 @@ static void	alt_d(t_objet *obj)
 	t_readl		rd;
 
 	rd = obj->rd;
-	curpos = get_curpos(obj->rd);
+	curpos = get_curpos(obj->line, obj->rd);
 	rd.curpos = ft_strlen(obj->line);
-	endpos = get_curpos(rd);
+	endpos = get_curpos(obj->line, rd);
 	if (curpos.y < endpos.y)
 	{
 		newpos = curpos;

@@ -35,7 +35,7 @@ static int		check_buff(t_objet *objet, char *buff)
 		return (0);
 	index = objet->rd.curpos;
 	objet->rd.curpos = newlen;
-	curpos = get_curpos(objet->rd);
+	curpos = get_curpos(objet->line, objet->rd);
 	objet->rd.curpos = index;
 	if (curpos.y >= objet->rd.ws_row)
 	{

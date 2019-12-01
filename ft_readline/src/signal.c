@@ -31,11 +31,11 @@ static void	reprint_prompt(t_objet *obj)
 	obj->rd.curpos = 0;
 }
 
-static void	reset_curs(t_readl rd, t_capab *tc)
+static void	reset_curs(char *line, t_readl rd, t_capab *tc)
 {
 	t_curpos curpos;
 
-	curpos = get_curpos(rd);
+	curpos = get_curpos(line, rd);
 	rd.curpos = 0;
 	ft_putstr(tc->hide_curs);
 	while (--curpos.y)
@@ -55,7 +55,7 @@ static void	reprint_line(t_objet *obj)
 
 	if (!obj)
 		return ;
-	reset_curs(obj->rd, obj->tc);
+	reset_curs(obj->line, obj->rd, obj->tc);
 	index = obj->rd.curpos;
 	obj->rd.curpos = 0;
 	ioctl(0, TIOCGWINSZ, &ws);
@@ -64,9 +64,9 @@ static void	reprint_line(t_objet *obj)
 	ft_putendl(obj->prompt);
 	ft_putstr("$> ");
 	bs_print(obj->line, obj->rd, obj->tc);
-	curpos = get_curpos(obj->rd);
+	curpos = get_curpos(obj->line, obj->rd);
 	obj->rd.curpos = index;
-	oldpos = get_curpos(obj->rd);
+	oldpos = get_curpos(obj->line, obj->rd);
 	curs_newpos(curpos, oldpos, obj->tc);
 }
 

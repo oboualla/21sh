@@ -33,9 +33,9 @@ void	kl(t_objet *obj)
 
 	if (obj->rd.curpos > 0)
 	{
-		curpos = get_curpos(obj->rd);
+		curpos = get_curpos(obj->line, obj->rd);
 		obj->rd.curpos--;
-		newpos = get_curpos(obj->rd);
+		newpos = get_curpos(obj->line, obj->rd);
 		curs_newpos(curpos, newpos, obj->tc);
 	}
 	else
@@ -49,9 +49,9 @@ void	kr(t_objet *obj)
 
 	if (obj->rd.curpos < ft_strlen(obj->line))
 	{
-		curpos = get_curpos(obj->rd);
+		curpos = get_curpos(obj->line, obj->rd);
 		obj->rd.curpos++;
-		newpos = get_curpos(obj->rd);
+		newpos = get_curpos(obj->line, obj->rd);
 		curs_newpos(curpos, newpos, obj->tc);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 03:43:41 by oboualla          #+#    #+#             */
-/*   Updated: 2019/11/29 17:46:05 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/02 00:13:16 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ void		kr(t_objet *obj);
 void		hm(t_objet *obj);
 void		ed(t_objet *obj);
 void		bs(t_objet *obj);
-void		to_next_line(t_capab *tc, ushort flag);
+void		to_next_line(t_capab *tc, t_ushort flag);
 void		to_up_line(t_capab *tc);
 int			alt_key(t_objet *obj, unsigned int cast);
 int			arrow_key(t_objet *objet, t_hist **lst, unsigned int cast);
@@ -135,7 +135,7 @@ int			other_key(t_objet *objet, unsigned int cast);
 int			alt_c(t_objet *obj);
 void		alt_v(t_objet *obj);
 int			alt_x(t_objet *obj);
-t_curpos	get_curpos(t_readl rd);
+t_curpos	get_curpos(char *line, t_readl rd);
 void		curs_newpos(t_curpos curpos, t_curpos newpos, t_capab *tc);
 void		bs_print(char *line, t_readl rd, t_capab *tc);
 void		l_print(char *line, t_readl *rd, t_capab *tc, size_t bufsize);
