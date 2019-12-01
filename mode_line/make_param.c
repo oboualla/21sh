@@ -60,23 +60,15 @@ static void		ft_strncpy_arg(char *dest, char *src, size_t n)
 	{
 		if (src[j] == '\\')
 			j++;
-		//if ((src[j] == '"' || src[j] == '\'') && src[j - 1] != '\\')
-		//	break ;
 		if (src[j] == '"' && src[j - 1] != '\\'
 			&& !(balance & 2))
 		{
-			if (balance)
-				balance -= 1;
-			else
-				balance += 1;
+			balance = (balance > 0) ? 0 : 1;
 			j++;
 		}
 		else if (src[j] == '\'' && src[j - 1] != '\\' && !(balance & 1))
 		{
-			if (balance)
-				balance -= 2;
-			else
-				balance += 2;
+			balance = (balance > 0) ? 0 : 2;
 			j++;
 		}
 		dest[i] = src[j];
