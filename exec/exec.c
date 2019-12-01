@@ -57,6 +57,8 @@ static int	commandes(char **env, char **args, t_vars **vars)
 
 static void	ft_exceve(t_parse *prs, char **cmd, char **env, int p0)
 {
+	int status = 0;
+
 	if (!fork())
 	{
 		if (p0 != -1)
@@ -75,8 +77,12 @@ static void	ft_exceve(t_parse *prs, char **cmd, char **env, int p0)
 	{
 		ft_retfd(0);
 		if (prs->link != 'p')
-			while (wait(NULL) > 0)
+			while (wait(&status) > 0)
 				;
+		if (WTERMSIG(status) == SIGSEGV)
+			ft_putendl_fd("Segmentation fault", 2);
+		if (WTERMSIG(status) == SIGABRT)
+			ft_putendl_fd("Aborted", 2);
 	}
 }
 
