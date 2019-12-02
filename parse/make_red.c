@@ -6,7 +6,7 @@
 /*   By: kbahrar <kbahrar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 17:06:31 by kbahrar           #+#    #+#             */
-/*   Updated: 2019/11/27 17:43:44 by kbahrar          ###   ########.fr       */
+/*   Updated: 2019/12/02 19:59:49 by kbahrar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	new_red(char **cmd, int i, t_redirec **red)
 	if (((*red)->link = ret_link(*cmd, &i)) == 'e')
 		return (err_red("21sh: parse error\n", -1, *red));
 	(*red)->fd = ret_fd(*cmd, &i);
-	if ((*red)->fd == -1000)
+	if ((*red)->fd == -1000 || (*red)->fd == -500)
 	{
 		if (!((*red)->file = ret_file(*cmd, &i)))
 			return (err_red("21sh: parse error\n", -1, *red));

@@ -6,7 +6,7 @@
 /*   By: kbahrar <kbahrar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 16:15:06 by kbahrar           #+#    #+#             */
-/*   Updated: 2019/11/27 17:33:19 by kbahrar          ###   ########.fr       */
+/*   Updated: 2019/12/02 20:03:03 by kbahrar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,19 @@ int			ret_fd(char *str, int *i)
 	if (str[*i] != '&')
 		return (-1000);
 	(*i)++;
+	if (str[*i] == ' ' || !str[*i])
+		return (-500);
 	j = (*i);
+	if (str[j] == '-')
+		j++;
 	while (str[j] && str[j] != ' ')
 	{
-		if (str[j] != '-' && (str[j] < '0' || str[j] > '9'))
+		if ((str[j] < '0' || str[j] > '9'))
 			return (-1000);
 		j++;
 	}
 	snum = ft_strsub(str, *i, j);
-	if (snum[0] == '-' && !snum[1])
+	if (snum[0] == '-')
 		fd = -1;
 	else
 		fd = ft_atoi(snum);
@@ -79,15 +83,30 @@ char		*ret_file(char *str, int *i)
 {
 	int		j;
 	char	*file;
+	char	tmp;
 
+	tmp = 'n';
 	while (str[*i] && str[*i] == ' ')
 		(*i)++;
 	j = *i;
 	if (str[j] == '>' || str[j] == '<' || str[j] == '\0')
 		return (NULL);
 	while (str[j] && str[j] != '<' && str[j] != '>' && str[j] != ' ')
+	{
+		if ((str[j] == '"' || str[j] == '\'') && tmp != str[j])
+		{
+			tmp = str[j];
+			(*i)++;
+			while (str[j] && str[j + 1] != tmp)
+				j++;
+		}
 		j++;
-	file = ft_strsub(str, *i, j);
+	}
+	if (tmp == 'n')
+		file = ft_strsub(str, *i, j);
+	else
+		file = ft_strsub(str, *i, j - 1);
 	*i = j;
+	ft_putstr(file);
 	return (file);
 }

@@ -6,7 +6,7 @@
 /*   By: kbahrar <kbahrar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 17:14:31 by kbahrar           #+#    #+#             */
-/*   Updated: 2019/11/25 14:56:59 by kbahrar          ###   ########.fr       */
+/*   Updated: 2019/12/02 19:19:25 by kbahrar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static int	commandes2(char **env, char **args)
 		ft_echo(args);
 	else if (ft_strchr(args[0], '/') == NULL)
 	{
-		ft_putstr(args[0]);
-		ft_putstr(": command not found.\n");
+		ft_putstr_fd(args[0], 2);
+		ft_putstr_fd(": command not found.\n", 2);
 	}
 	else
 		return (0);
@@ -55,10 +55,41 @@ static int	commandes(char **env, char **args, t_vars **vars)
 	return (1);
 }
 
+static void	for_norm(int flag, t_parse **prs, char **cmd, char **env)
+{
+	if (flag == 1)
+	{
+		while (*prs)
+		{
+			if ((*prs)->next && (*prs)->next->link != 'p')
+			{
+				(*prs) = (*prs)->next;
+				break ;
+			}
+			(*prs) = (*prs)->next;
+		}
+	}
+	else if (flag == -1 || flag == -2)
+	{
+		free_paths(cmd);
+		free_paths(env);
+		if (flag == -2)
+			*prs = (*prs)->next;
+	}
+	else
+	{
+		if (WTERMSIG(flag) == SIGSEGV)
+			ft_putendl_fd("Segmentation fault", 2);
+		if (WTERMSIG(flag) == SIGABRT)
+			ft_putendl_fd("Aborted", 2);
+	}
+}
+
 static void	ft_exceve(t_parse *prs, char **cmd, char **env, int p0)
 {
-	int status = 0;
+	int status;
 
+	status = 0;
 	if (!fork())
 	{
 		if (p0 != -1)
@@ -79,33 +110,7 @@ static void	ft_exceve(t_parse *prs, char **cmd, char **env, int p0)
 		if (prs->link != 'p')
 			while (wait(&status) > 0)
 				;
-		if (WTERMSIG(status) == SIGSEGV)
-			ft_putendl_fd("Segmentation fault", 2);
-		if (WTERMSIG(status) == SIGABRT)
-			ft_putendl_fd("Aborted", 2);
-	}
-}
-
-static void	for_norm(int flag, t_parse **prs, char **cmd, char **env)
-{
-	if (flag == 1)
-	{
-		while (*prs)
-		{
-			if ((*prs)->next && (*prs)->next->link != 'p')
-			{
-				(*prs) = (*prs)->next;
-				break ;
-			}
-			(*prs) = (*prs)->next;
-		}
-	}
-	else
-	{
-		free_paths(cmd);
-		free_paths(env);
-		if (flag == -2)
-			*prs = (*prs)->next;
+		for_norm(status, NULL, NULL, NULL);
 	}
 }
 

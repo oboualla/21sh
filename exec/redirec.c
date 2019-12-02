@@ -6,7 +6,7 @@
 /*   By: kbahrar <kbahrar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 19:46:55 by kbahrar           #+#    #+#             */
-/*   Updated: 2019/11/23 19:57:13 by kbahrar          ###   ########.fr       */
+/*   Updated: 2019/12/02 19:23:27 by kbahrar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	ft_openfile(t_redirec *red)
 
 	fd = -1;
 	if (red->link == 'W')
-		fd = open(red->file, O_RDWR | O_CREAT, S_IRUSR |
+		fd = open(red->file, O_RDWR | O_CREAT | O_TRUNC, S_IRUSR |
 		S_IWUSR | S_IRGRP | S_IROTH);
 	else if (red->link == 'A')
 		fd = open(red->file, O_RDWR | O_CREAT | O_APPEND, S_IRUSR

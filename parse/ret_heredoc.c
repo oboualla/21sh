@@ -6,7 +6,7 @@
 /*   By: kbahrar <kbahrar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 19:18:15 by kbahrar           #+#    #+#             */
-/*   Updated: 2019/11/25 14:57:34 by kbahrar          ###   ########.fr       */
+/*   Updated: 2019/12/02 18:38:56 by kbahrar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ char		*ret_heredoc(char *name)
 	char	*str;
 	char	*read;
 
+	ft_putstr_fd(name, 2);
 	str = ft_strnew(0);
 	save_line(&str);
 	while ((read = ft_readline("heredoc")))
