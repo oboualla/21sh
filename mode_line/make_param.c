@@ -6,7 +6,7 @@
 /*   By: kbahrar <kbahrar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 16:53:13 by oboualla          #+#    #+#             */
-/*   Updated: 2019/11/25 21:43:16 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/02 22:03:06 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,17 @@ static void		ft_strncpy_arg(char *dest, char *src, size_t n)
 	balance = 0;
 	j = 0;
 	i = 0;
-	if (src[j] == '"' || src[j] == '\'')
-		j++;
 	while (j < n)
 	{
 		if (src[j] == '\\')
 			j++;
-		if (src[j] == '"' && src[j - 1] != '\\'
+		if (src[j] == '"' && (!j || src[j - 1] != '\\')
 			&& !(balance & 2))
 		{
 			balance = (balance > 0) ? 0 : 1;
 			j++;
 		}
-		else if (src[j] == '\'' && src[j - 1] != '\\' && !(balance & 1))
+		else if (src[j] == '\'' && (!j || src[j - 1] != '\\') && !(balance & 1))
 		{
 			balance = (balance > 0) ? 0 : 2;
 			j++;
