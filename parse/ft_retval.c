@@ -6,7 +6,7 @@
 /*   By: kbahrar <kbahrar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 16:15:06 by kbahrar           #+#    #+#             */
-/*   Updated: 2019/12/02 20:03:03 by kbahrar          ###   ########.fr       */
+/*   Updated: 2019/12/02 20:39:27 by kbahrar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,5 @@ char		*ret_file(char *str, int *i)
 	else
 		file = ft_strsub(str, *i, j - 1);
 	*i = j;
-	ft_putstr(file);
 	return (file);
 }

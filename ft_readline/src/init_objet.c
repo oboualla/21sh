@@ -6,7 +6,7 @@
 /*   By: kbahrar <kbahrar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 15:17:12 by oboualla          #+#    #+#             */
-/*   Updated: 2019/12/02 18:35:46 by kbahrar          ###   ########.fr       */
+/*   Updated: 2019/12/02 21:05:08 by kbahrar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ char			*exit_readline(t_objet **objet, t_hist **lst, int flag)
 	{
 		line = ft_strdup((*objet)->line);
 		if (line && ft_strcmp((*objet)->prompt, "dquote")
-			&& ft_strcmp((*objet)->prompt, "pipe"))
+			&& ft_strcmp((*objet)->prompt, "pipe")
+			&& ft_strcmp((*objet)->prompt, "heredoc"))
 		{
 			add_hist(ft_strdup(line), lst);
 			ctrl_c(&line);

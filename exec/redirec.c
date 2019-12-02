@@ -6,7 +6,7 @@
 /*   By: kbahrar <kbahrar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 19:46:55 by kbahrar           #+#    #+#             */
-/*   Updated: 2019/12/02 19:23:27 by kbahrar          ###   ########.fr       */
+/*   Updated: 2019/12/02 21:00:43 by kbahrar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static int	ft_openfile(t_redirec *red)
 	else if (red->link == 'C')
 		if ((fd = open(red->file, O_RDWR)) == -1)
 			return (-1);
+	if (red->fd == -500 && red->ffd == -1)
+		dup2(fd, 2);
 	if (red->link == 'C')
 		dup2(fd, 0);
 	else if (red->ffd != -1)
