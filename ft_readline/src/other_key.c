@@ -6,7 +6,7 @@
 /*   By: oboualla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 15:56:23 by oboualla          #+#    #+#             */
-/*   Updated: 2019/11/14 18:33:04 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/03 22:41:08 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	bs(t_objet *obj)
 		while (obj->line[++i])
 			obj->line[i] = obj->line[i + 1];
 		curs_newpos(old_pos, new_pos, obj->tc);
-		ft_putstr(obj->tc->clear_line);
+		ft_putstr(tgetstr("cd", NULL));
 		if (obj->rd.curpos < ft_strlen(obj->line))
 			bs_print(obj->line, obj->rd, obj->tc);
 	}

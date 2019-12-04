@@ -6,17 +6,16 @@
 /*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:23:52 by oboualla          #+#    #+#             */
-/*   Updated: 2019/12/02 00:11:50 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/04 02:21:15 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/read_line.h"
 
-t_curpos	get_curpos(char *line, t_readl rd)
+t_curpos	get_curpos1(t_readl rd)
 {
 	t_curpos	cp;
 
-	(void)line;
 	cp.x = (rd.curpos + 1) + rd.prompt_len;
 	cp.y = 1;
 	while (cp.x > rd.ws_col)
@@ -26,9 +25,11 @@ t_curpos	get_curpos(char *line, t_readl rd)
 	}
 	return (cp);
 }
-/*
+
 size_t		chr_index(char *str, size_t n,  char c)
 {
+	if (n)
+		n--;
 	while (n > 0 && str[n] != c)
 		n--;
 	return (n);
@@ -51,6 +52,7 @@ size_t		chr_calc(char *str, size_t n, char c)
 t_curpos	get_curpos(char *line, t_readl rd)
 {
 	t_curpos	cp;
+	t_curpos	line_pos;
 	size_t		index;
 
 	index = 1;
@@ -59,10 +61,22 @@ t_curpos	get_curpos(char *line, t_readl rd)
 		return (get_curpos1(rd));
 	index += chr_index(line, rd.curpos, '\n');
 	cp.y += chr_calc(line, rd.curpos, '\n');
-	cp.x = (rd.curpos - index) + 1;
+//	line_pos = get_cutpos1((t_readl){rd.ws_col, rd.ws_row, 0, rd.curpos});
+	if (rd.curpos >= index && cp.y != 1)
+		cp.x = (rd.curpos - index) + 1;
+	else
+		cp.x = (rd.curpos) + 1;
+	if (cp.y == 1)
+		cp.x += rd.prompt_len;
+	line_pos = get_curpos1((t_readl){rd.ws_col, rd.ws_row, 0, cp.x - 1});
+	if (line_pos.y > 1)
+	{
+		cp.x = line_pos.x;
+		cp.y += (line_pos.y - 1);
+	}
 	return (cp); 
 }
-*/
+
 void		curs_newpos(t_curpos curpos, t_curpos newpos, t_capab *tc)
 {
 	ft_putstr(tc->hide_curs);

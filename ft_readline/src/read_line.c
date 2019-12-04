@@ -6,7 +6,7 @@
 /*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 03:35:04 by oboualla          #+#    #+#             */
-/*   Updated: 2019/11/29 17:25:37 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/03 23:08:58 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void		add_inside_line(char line[], char buff[], t_readl rd)
 {
 	char *rest;
 
-	ft_change_chr_to_nwchr(buff, '\n', ' ');
+	ft_change_chr_to_nwchr(buff, "\n\t", ' ');
 	rest = ft_strdup(&line[rd.curpos]);
 	ft_bzero((void*)&line[rd.curpos], (ft_strlen(line) - rd.curpos));
 	ft_strcpy(&line[rd.curpos], buff);

@@ -6,7 +6,7 @@
 /*   By: kbahrar <kbahrar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/06 21:47:04 by kbahrar           #+#    #+#             */
-/*   Updated: 2019/11/25 14:56:53 by kbahrar          ###   ########.fr       */
+/*   Updated: 2019/12/04 07:31:49 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	ft_del_elem(char *nom, t_vars **vars)
 	t_vars	*tmp;
 	t_vars	*pre;
 
+	if (!*vars)
+		return ;
 	tmp = (*vars)->next;
 	pre = *vars;
 	if (ft_strcmp(pre->nom, nom) == 0)

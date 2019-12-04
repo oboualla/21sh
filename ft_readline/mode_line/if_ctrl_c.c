@@ -6,7 +6,7 @@
 /*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 16:45:33 by oboualla          #+#    #+#             */
-/*   Updated: 2019/11/29 18:18:30 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/04 01:11:41 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	ctrl_c(char **line)
 	free(tmp);
 	quots(line);
 	check_pipe(line);
-	modifier_line(lst, line);
 	if (!*line || !(*line)[0])
 		return ;
 	return ;

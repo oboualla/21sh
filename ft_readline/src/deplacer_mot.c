@@ -6,7 +6,7 @@
 /*   By: oboualla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:55:26 by oboualla          #+#    #+#             */
-/*   Updated: 2019/11/14 17:44:33 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/04 07:18:05 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,11 @@ static void	alt_p(t_objet *obj)
 	curpos = get_curpos(obj->line, obj->rd);
 	if (curpos.y > 1)
 	{
-		newpos = curpos;
-		newpos.y--;
-		if (obj->rd.curpos >= obj->rd.ws_col)
-			obj->rd.curpos -= obj->rd.ws_col;
-		else
-		{
+		if (obj->rd.curpos < obj->rd.ws_col)
 			obj->rd.curpos = 0;
-			newpos.x = obj->rd.prompt_len + 1;
-		}
+		else
+			obj->rd.curpos -= obj->rd.ws_col;
+		newpos = get_curpos(obj->line, obj->rd);
 		curs_newpos(curpos, newpos, obj->tc);
 	}
 	else
@@ -91,9 +87,8 @@ static void	alt_d(t_objet *obj)
 	endpos = get_curpos(obj->line, rd);
 	if (curpos.y < endpos.y)
 	{
-		newpos = curpos;
-		newpos.y++;
 		obj->rd.curpos += rd.ws_col;
+		newpos = get_curpos(obj->line, obj->rd);
 		if ((newpos.y == endpos.y) && (endpos.x < newpos.x))
 		{
 			newpos.x = endpos.x;

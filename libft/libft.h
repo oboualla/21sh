@@ -6,7 +6,7 @@
 /*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:28:30 by oboualla          #+#    #+#             */
-/*   Updated: 2019/11/28 21:52:28 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/03 22:53:05 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int						ft_skip_sep(const char *str, char *sep);
 int						ft_is_separ(char const *str, char c);
 char					*ft_reverse(char const *chaine);
 int						ft_change_chr_to_nwchr(char *chaine,
-		char chr, char nwchr);
+		char *chr, char nwchr);
 int						ft_sqrt(int nb);
 t_list					*ft_new_lst(t_list *lst, char *str);
 void					ft_print_list(t_list *list);

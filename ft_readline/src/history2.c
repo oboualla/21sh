@@ -6,7 +6,7 @@
 /*   By: oboualla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/14 17:48:47 by oboualla          #+#    #+#             */
-/*   Updated: 2019/11/25 21:31:30 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/03 04:25:26 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,24 @@ static int	free_alloc_firstcmd(t_hist **lst, char *line, t_ushort func)
 
 void		kp(t_hist **lst, t_objet *obj)
 {
-	t_curpos	curpos;
-	t_curpos	newpos;
+//	t_curpos	curpos;
+//	t_curpos	newpos;
 
 	if ((*lst))
 	{
 		if (!(free_alloc_firstcmd(lst, obj->line, 1)))
 			return ;
-		ft_bzero((void*)obj->line, 1024);
-		ft_strcpy(obj->line, (*lst)->line);
-		curpos = get_curpos(obj->line, obj->rd);
+		//ft_bzero((void*)obj->line, 1024);
+		//ft_strcpy(obj->line, (*lst)->line);
+	/*	curpos = get_curpos(obj->line, obj->rd);
 		obj->rd.curpos = 0;
 		newpos = get_curpos(obj->line, obj->rd);
 		curs_newpos(curpos, newpos, obj->tc);
+		*/
+		hm(obj);
 		ft_putstr(tgetstr("cd", NULL));
+		ft_bzero((void*)obj->line, 1024);
+		ft_strcpy(obj->line, (*lst)->line);
 		if (obj->line[0] != '\0')
 		{
 			reprint(obj->line, obj->rd, obj->tc);
@@ -67,19 +71,22 @@ void		kp(t_hist **lst, t_objet *obj)
 
 void		kd(t_hist **lst, t_objet *obj)
 {
-	t_curpos curpos;
-	t_curpos newpos;
+//	t_curpos curpos;
+//	t_curpos newpos;
 
 	if ((*lst) && (*lst)->back)
 	{
 		*lst = (*lst)->back;
-		ft_bzero((void*)obj->line, 1024);
-		ft_strcpy(obj->line, (*lst)->line);
-		curpos = get_curpos(obj->line, obj->rd);
+		//ft_bzero((void*)obj->line, 1024);
+		//ft_strcpy(obj->line, (*lst)->line);
+		/*curpos = get_curpos(obj->line, obj->rd);
 		obj->rd.curpos = 0;
 		newpos = get_curpos(obj->line, obj->rd);
-		curs_newpos(curpos, newpos, obj->tc);
+		curs_newpos(curpos, newpos, obj->tc);*/
+		hm(obj);
 		ft_putstr(tgetstr("cd", NULL));
+		ft_bzero((void*)obj->line, 1024);
+		ft_strcpy(obj->line, (*lst)->line);
 		if (obj->line[0] != '\0')
 		{
 			reprint(obj->line, obj->rd, obj->tc);

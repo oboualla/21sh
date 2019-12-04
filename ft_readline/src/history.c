@@ -6,7 +6,7 @@
 /*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:44:37 by oboualla          #+#    #+#             */
-/*   Updated: 2019/11/29 20:42:55 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/04 00:39:57 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,37 +52,35 @@ void			init_hist(t_hist **lst)
 	close(fd);
 }
 
-static void		print_history(char *line, int fd)
+static void		free_lsthist(t_hist **lst)
 {
-	ft_putstr_fd("$>:", fd);
-	ft_putstr_fd(line, fd);
+	if (!*lst)
+		return ;
+	if ((*lst)->next)
+		free_lsthist(&(*lst)->next);
+	ft_strdel(&(*lst)->line);
+	ft_memdel((void**)lst);
 }
-
 void			stock_hist(t_hist **lst)
 {
 	int		fd;
 	char	*file;
-	t_hist	*tmp;
 
+	if (!*lst)
+		return ;
 	file = ft_strjoin(getenv("HOME"), "/.21sh_history");
-	if ((fd = open(file, O_WRONLY | O_CREAT, S_IRWXU)) == -1)
+	if ((fd = open(file, O_WRONLY | O_CREAT | O_APPEND, S_IRWXU)) == -1)
 	{
 		free(file);
+		free_lsthist(lst);
 		return ;
 	}
 	free(file);
-	if (*lst && (*lst)->next)
-		while ((*lst)->next)
-			(*lst) = (*lst)->next;
-	while (*lst)
-	{
-		tmp = (*lst)->back;
-		print_history((*lst)->line, fd);
-		ft_strdel(&(*lst)->line);
-		ft_memdel((void**)lst);
-		*lst = tmp;
-	}
+	//print_history((*lst)->line, fd);
+	ft_putstr_fd("$>:", fd);
+	ft_putstr_fd((*lst)->line, fd);
 	close(fd);
+	free_lsthist(lst);
 }
 
 void			add_hist(char *line, t_hist **lst)

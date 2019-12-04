@@ -1,0 +1,2 @@
+[1]  - suspended  ls -G -R /
+[2]  + suspended  ls -G -lR /

@@ -6,7 +6,7 @@
 /*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:23:29 by oboualla          #+#    #+#             */
-/*   Updated: 2019/11/25 14:25:05 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/03 04:08:30 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	l_print(char *line, t_readl *rd, t_capab *tc, size_t bufsize)
 {
 	t_curpos cp;
 
+	(void)bufsize;
 	if ((rd->curpos + 1) == ft_strlen(line))
 	{
 		cp = get_curpos(line, *rd);
@@ -66,6 +67,7 @@ void	bs_print(char *line, t_readl rd, t_capab *tc)
 			to_next_line(tc, 0);
 		}
 	}
+	cur_pos = get_curpos(line, (t_readl){rd.ws_col, rd.ws_row, rd.prompt_len, i}); 
 	curs_newpos(cur_pos, oldpos, tc);
 	ft_putstr(tc->show_curs);
 }
@@ -76,6 +78,7 @@ void	reprint(char *line, t_readl rd, t_capab *tc)
 
 	old_pos = get_curpos(line, rd);
 	bs_print(line, rd, tc);
+	ft_putstr(tc->hide_curs);
 	if (old_pos.x != rd.ws_col)
 		ft_putstr(tc->move_right);
 	else

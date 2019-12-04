@@ -6,7 +6,7 @@
 /*   By: kbahrar <kbahrar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 17:14:31 by kbahrar           #+#    #+#             */
-/*   Updated: 2019/12/02 19:19:25 by kbahrar          ###   ########.fr       */
+/*   Updated: 2019/12/04 06:39:16 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,11 @@ static void	ft_exceve(t_parse *prs, char **cmd, char **env, int p0)
 	{
 		ft_retfd(0);
 		if (prs->link != 'p')
-			while (wait(&status) > 0)
-				;
-		for_norm(status, NULL, NULL, NULL);
+		{
+			wait(&status);
+			for_norm(status, NULL, NULL, NULL);
+		}
+
 	}
 }
 
@@ -123,6 +125,7 @@ void		exec(t_parse *prs, t_vars **vars)
 	ft_retfd(1);
 	while (prs)
 	{
+		modifier_line(*vars, &prs->cmd);
 		cmd = make_param(prs->cmd);
 		env = make_env(*vars);
 		if ((p0 = ft_pipehelp(prs)) <= -2)
