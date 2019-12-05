@@ -6,7 +6,7 @@
 /*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 21:18:01 by kbahrar           #+#    #+#             */
-/*   Updated: 2019/12/05 13:25:07 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/05 13:53:29 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,8 @@ int			main(void)
 	line = NULL;
 	while (1)
 	{
-		if (get_line(&line) < 0)
-		{
-			ft_strdel(save_prompt(NULL));
-			return (0);
-		}
+		if (get_line(&line) < 0 || !ft_strncmp(line, "exit", ft_strlen("exit")))
+			break ;
 		if (line)
 		{
 			prs = parse_line(line);
@@ -80,5 +77,8 @@ int			main(void)
 		}
 		ft_strdel(save_prompt(NULL));
 	}
-	return (0);
+	ft_strdel(save_prompt(NULL));
+	ft_strdel(&line);
+	free_list(&vars);
+	return (EXIT_SUCCESS);
 }

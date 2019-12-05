@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbahrar <kbahrar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 17:14:31 by kbahrar           #+#    #+#             */
-/*   Updated: 2019/12/04 19:47:40 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/05 13:48:20 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,8 @@ static int	commandes2(char **env, char **args)
 
 static int	commandes(char **env, char **args, t_vars **vars)
 {
-	if (ft_strcmp(args[0], "exit") == 0)
-	{
-		free_sh(env, args, vars);
-		exit(0);
-	}
-	else if (ft_strcmp(args[0], "/usr/bin/cd") == 0 ||
-	ft_strcmp(args[0], "cd") == 0)
+	if (ft_strcmp(args[0], "/usr/bin/cd") == 0 ||
+		ft_strcmp(args[0], "cd") == 0)
 		do_cd(args, env, vars);
 	else if (ft_strcmp("setenv", args[0]) == 0)
 	{
@@ -113,7 +108,6 @@ static void	ft_exceve(t_parse *prs, char **cmd, char **env, int p0)
 				;
 			for_norm(status, NULL, NULL, NULL);
 		}
-
 	}
 }
 
