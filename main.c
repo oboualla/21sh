@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbahrar <kbahrar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 21:18:01 by kbahrar           #+#    #+#             */
-/*   Updated: 2019/12/05 03:49:19 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/05 13:25:07 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,8 @@ static int	get_line(char **line)
 {
 	if (!(*line = ft_readline(prompt())))
 		return (-1);
-	if (!*line || !(*line)[0])
-	{
-		if (*line && !(*line)[0])
-			ft_strdel(line);
+	if (!*line)
 		return (0);
-	}
 	return (1);
 }
 
@@ -74,7 +70,7 @@ int			main(void)
 		if (get_line(&line) < 0)
 		{
 			ft_strdel(save_prompt(NULL));
-			exit(0);
+			return (0);
 		}
 		if (line)
 		{
@@ -84,4 +80,5 @@ int			main(void)
 		}
 		ft_strdel(save_prompt(NULL));
 	}
+	return (0);
 }
