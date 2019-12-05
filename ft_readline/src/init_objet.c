@@ -6,7 +6,7 @@
 /*   By: kbahrar <kbahrar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 15:17:12 by oboualla          #+#    #+#             */
-/*   Updated: 2019/12/03 21:06:12 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/05 03:30:18 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ char			*exit_readline(t_objet **objet, t_hist **lst, int flag)
 			&& ft_strcmp((*objet)->prompt, "pipe")
 			&& ft_strcmp((*objet)->prompt, "heredoc"))
 		{
+			*save_objet(NULL) = NULL;
 			ctrl_c(&line);
 			add_hist(ft_strdup(line), lst);
-			//ctrl_c(&line);
+			stock_hist(lst);
 		}
 	}
-	stock_hist(lst);
-	*save_objet(NULL) = NULL;
+	free_lsthist(lst);
 	ft_memdel((void**)&(*objet)->tc);
 	ft_memdel((void**)objet);
 	return (line);

@@ -6,7 +6,7 @@
 /*   By: oboualla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/01 00:01:01 by oboualla          #+#    #+#             */
-/*   Updated: 2019/11/21 17:42:30 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/05 04:04:49 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static char		**ft_remplir(char **tab, char *s, char c)
 		else if (s[i] == c)
 			flag = 0;
 	}
-	tab[j] = 0;
+	tab[j] = NULL;
 	return (tab);
 }
 
@@ -65,7 +65,7 @@ char			**ft_strsplit(char const *s, char c)
 	src = (char *)s;
 	if (!(src))
 		return (0);
-	if (!(tab = (char**)malloc(sizeof(char *) * (ft_count_word(src, c) + 1))))
+	if (!(tab = (char**)ft_memalloc(sizeof(char *) * (ft_count_word(src, c) + 1))))
 		return (0);
 	ft_remplir(tab, src, c);
 	return (tab);

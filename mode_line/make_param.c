@@ -6,7 +6,7 @@
 /*   By: kbahrar <kbahrar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 16:53:13 by oboualla          #+#    #+#             */
-/*   Updated: 2019/12/04 01:03:02 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/05 03:46:05 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,28 @@ static size_t	get_sizeparm(const char *cmd)
 	return (parm);
 }
 
+static int		check_chr(char *src, size_t *j, size_t *balance)
+{
+	if (src[*j] == '\\')
+		(*j)++;
+	if (src[*j] == '"' && (!*j || src[(*j) - 1] != '\\')
+	&& !((*balance) & 2))
+	{
+		*balance = ((*balance) > 0) ? 0 : 1;
+		if (!*balance && src[(*j) + 1] == ' ')
+			return (0);
+		(*j)++;
+	}
+	else if (src[*j] == '\'' && (!*j || src[(*j) - 1] != '\\') && !((*balance) & 1))
+	{
+		*balance = ((*balance) > 0) ? 0 : 2;
+		if (!(*balance) && src[(*j) + 1] == ' ')
+			return (0);
+		(*j)++;
+	}
+	return (1);
+}
+
 static void		ft_strncpy_arg(char *dest, char *src, size_t n)
 {
 	size_t i;
@@ -56,21 +78,8 @@ static void		ft_strncpy_arg(char *dest, char *src, size_t n)
 	i = 0;
 	while (j < n)
 	{
-		if (src[j] == '\\')
-			j++;
-		if (src[j] == '"' && (!j || src[j - 1] != '\\')
-			&& !(balance & 2))
-		{
-			balance = (balance > 0) ? 0 : 1;
-			j++;
-		}
-		else if (src[j] == '\'' && (!j || src[j - 1] != '\\') && !(balance & 1))
-		{
-			balance = (balance > 0) ? 0 : 2;
-			if (!balance && src[j + 1] == ' ')
-				break ;
-			j++;
-		}
+		if (!(check_chr(src, &j, &balance)))
+			break ;
 		dest[i] = src[j];
 		i++;
 		j++;

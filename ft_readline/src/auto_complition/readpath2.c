@@ -6,7 +6,7 @@
 /*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 14:32:54 by oboualla          #+#    #+#             */
-/*   Updated: 2019/11/27 17:22:08 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/05 04:13:05 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,30 @@
 
 static int	access_file(char *file, char *path, t_ushort mode)
 {
-	char	pfile[1000];
+	char	*pfile;
 	t_stat	st;
+	int ret;
 
+	ret = 0;
+	if (!(pfile = ft_strnew(ft_strlen(file) + ft_strlen(path) + 1)))
+		return (0);
 	ft_strcpy(pfile, path);
 	ft_strcat(pfile, "/");
 	ft_strcat(pfile, file);
 	if (mode == ONLY_DIR)
 	{
 		if (!stat(pfile, &st) && S_ISDIR(st.st_mode))
-			return (1);
+			ret = 1;
 	}
 	else if (mode == ONLY_CMD)
 	{
 		if (!access(pfile, F_OK | X_OK))
-			return (1);
+			ret = 1;
 	}
 	else
-		return (1);
-	return (0);
+		ret = 1;
+	free(pfile);
+	return (ret);
 }
 
 static void	change_dname(char *d_name)
@@ -53,20 +58,17 @@ static void	change_dname(char *d_name)
 
 static int	condition_(char *d_name, char *file, char *path, t_ushort mode)
 {
-	int		ret;
-
-	ret = 1;
 	if (!ft_strcmp(d_name, "..") && !ft_strcmp(d_name, "."))
-		ret = 0;
+		return (0);
 	else if (ft_strncmp(d_name, file, ft_strlen(file)))
-		ret = 0;
+		return (0);
 	else if (!access_file(d_name, path, mode))
-		ret = 0;
+		return (0);
 	else if (ft_strchr(d_name, ' '))
 		change_dname(d_name);
 	else if (d_name[0] == '.' && (!file || file[0] != '.'))
-		ret = 0;
-	return (ret);
+		return (0);
+	return (1);
 }
 
 char		*get_file(char *file, char *path, size_t *len, t_ushort mode)

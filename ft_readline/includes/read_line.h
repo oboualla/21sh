@@ -6,7 +6,7 @@
 /*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 03:43:41 by oboualla          #+#    #+#             */
-/*   Updated: 2019/12/04 01:38:01 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/05 03:35:39 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ char		*exit_readline(t_objet **objet, t_hist **lst, int flag);
 void		init_hist(t_hist **lst);
 void		stock_hist(t_hist **lst);
 void		add_hist(char *line, t_hist **lst);
+void		free_lsthist(t_hist **lst);
 void		kp(t_hist **lst, t_objet *obj);
 void		kd(t_hist **lst, t_objet *obj);
 t_hist		*make_node(char *line);

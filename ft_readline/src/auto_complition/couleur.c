@@ -6,7 +6,7 @@
 /*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 16:38:18 by oboualla          #+#    #+#             */
-/*   Updated: 2019/11/27 17:08:28 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/05 04:15:05 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 void	couleur(char *file, char *path)
 {
-	char	join[1000];
+	char	*join;
 	t_stat	st;
 
+	if (!(join = ft_strnew(ft_strlen(file) + ft_strlen(path) + 1)))
+		return ;
 	ft_strcpy(join, path);
 	ft_strcat(join, "/");
 	ft_strcat(join, file);
@@ -34,4 +36,5 @@ void	couleur(char *file, char *path)
 		ft_putstr("\033[1;34m");
 	else
 		ft_putstr("\033[0m");
+	ft_strdel(&join);
 }

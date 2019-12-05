@@ -6,7 +6,7 @@
 /*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:44:37 by oboualla          #+#    #+#             */
-/*   Updated: 2019/12/04 00:39:57 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/05 03:28:48 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void			init_hist(t_hist **lst)
 	close(fd);
 }
 
-static void		free_lsthist(t_hist **lst)
+void		free_lsthist(t_hist **lst)
 {
 	if (!*lst)
 		return ;
@@ -76,11 +76,9 @@ void			stock_hist(t_hist **lst)
 		return ;
 	}
 	free(file);
-	//print_history((*lst)->line, fd);
 	ft_putstr_fd("$>:", fd);
 	ft_putstr_fd((*lst)->line, fd);
 	close(fd);
-	free_lsthist(lst);
 }
 
 void			add_hist(char *line, t_hist **lst)
