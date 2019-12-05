@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_objet.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kbahrar <kbahrar@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 15:17:12 by oboualla          #+#    #+#             */
-/*   Updated: 2019/12/05 03:30:18 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/05 18:39:14 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char			*exit_readline(t_objet **objet, t_hist **lst, int flag)
 			stock_hist(lst);
 		}
 	}
+	*save_objet(NULL) = NULL;
 	free_lsthist(lst);
 	ft_memdel((void**)&(*objet)->tc);
 	ft_memdel((void**)objet);
