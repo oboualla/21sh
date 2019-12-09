@@ -6,7 +6,7 @@
 /*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/18 17:15:54 by oboualla          #+#    #+#             */
-/*   Updated: 2019/12/03 22:48:49 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/08 22:29:43 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@ static void	move_right(t_objet *obj)
 	{
 		ft_putstr(obj->tc->clear_line);
 		ft_putstr(tgetstr("us", NULL));
-		ft_putchar(obj->line[obj->rd.curpos++]);
+		if (obj->line[obj->rd.curpos] != '\n')
+			ft_putchar(obj->line[obj->rd.curpos]);
+		else
+			to_next_line(obj->tc, 1);
+		obj->rd.curpos++;
 		ft_putstr(tgetstr("ue", NULL));
 		bs_print(obj->line, obj->rd, obj->tc);
 	}
@@ -80,7 +84,7 @@ int			alt_c(t_objet *obj)
 		else if (cast == KL)
 			move_left(obj, &rd);
 		else
-			ft_putstr(tgetstr("bl", NULL));
+			return (0);
 		ft_bzero((void*)buff, 4);
 	}
 	obj->copier = ft_strndup(&obj->line[rd.curpos],
@@ -107,7 +111,7 @@ int			alt_x(t_objet *obj)
 		else if (cast == KL)
 			move_left(obj, &rd);
 		else
-			ft_putstr(tgetstr("bl", NULL));
+			return (0);
 		ft_bzero((void*)buff, 4);
 	}
 	couper_line(obj, &rd);

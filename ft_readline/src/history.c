@@ -6,13 +6,13 @@
 /*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/09 17:44:37 by oboualla          #+#    #+#             */
-/*   Updated: 2019/12/05 03:28:48 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/09 13:58:00 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/read_line.h"
 
-t_hist			*make_node(char *line)
+t_hist	*make_node(char *line)
 {
 	t_hist	*new;
 
@@ -24,7 +24,7 @@ t_hist			*make_node(char *line)
 	return (new);
 }
 
-void			init_hist(t_hist **lst)
+void	init_hist(t_hist **lst)
 {
 	t_hist	*tmp;
 	t_hist	*rest;
@@ -52,7 +52,7 @@ void			init_hist(t_hist **lst)
 	close(fd);
 }
 
-void		free_lsthist(t_hist **lst)
+void	free_lsthist(t_hist **lst)
 {
 	if (!*lst)
 		return ;
@@ -61,7 +61,8 @@ void		free_lsthist(t_hist **lst)
 	ft_strdel(&(*lst)->line);
 	ft_memdel((void**)lst);
 }
-void			stock_hist(t_hist **lst)
+
+void	stock_hist(t_hist **lst)
 {
 	int		fd;
 	char	*file;
@@ -81,7 +82,7 @@ void			stock_hist(t_hist **lst)
 	close(fd);
 }
 
-void			add_hist(char *line, t_hist **lst)
+void	add_hist(char *line, t_hist **lst)
 {
 	t_hist *tmp;
 

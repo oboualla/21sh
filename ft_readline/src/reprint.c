@@ -6,7 +6,7 @@
 /*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/01 12:23:29 by oboualla          #+#    #+#             */
-/*   Updated: 2019/12/03 04:08:30 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/09 14:06:09 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	move_curs(char *line, t_readl *rd, t_capab *tc, size_t bufsize)
 	curs_newpos(oldpos, newpos, tc);
 }
 
-void	l_print(char *line, t_readl *rd, t_capab *tc, size_t bufsize)
+void		l_print(char *line, t_readl *rd, t_capab *tc, size_t bufsize)
 {
 	t_curpos cp;
 
@@ -42,7 +42,22 @@ void	l_print(char *line, t_readl *rd, t_capab *tc, size_t bufsize)
 		move_curs(line, rd, tc, bufsize);
 }
 
-void	bs_print(char *line, t_readl rd, t_capab *tc)
+int			new_line(char c, t_curpos *curpos, t_readl rd, t_capab *tc)
+{
+	if (curpos->x == (rd.ws_col + 1) || c == '\n')
+	{
+		if (curpos->x == (rd.ws_col + 1) && c == '\n')
+			to_next_line(tc, 0);
+		curpos->x = 1;
+		curpos->y++;
+		to_next_line(tc, 0);
+		if (c == '\n')
+			return (1);
+	}
+	return (0);
+}
+
+void		bs_print(char *line, t_readl rd, t_capab *tc)
 {
 	t_curpos	cur_pos;
 	t_curpos	oldpos;
@@ -55,33 +70,30 @@ void	bs_print(char *line, t_readl rd, t_capab *tc)
 	ft_putstr(tc->clear_line);
 	while (line[i])
 	{
-		while (line[i] && (cur_pos.x < (rd.ws_col + 1)))
+		while (line[i] && (cur_pos.x < (rd.ws_col + 1)) && line[i] != '\n')
 		{
 			ft_putchar(line[i++]);
 			cur_pos.x++;
 		}
-		if (cur_pos.x == (rd.ws_col + 1))
-		{
-			cur_pos.x = 1;
-			cur_pos.y++;
-			to_next_line(tc, 0);
-		}
+		if (new_line(line[i], &cur_pos, rd, tc))
+			i++;
 	}
-	cur_pos = get_curpos(line, (t_readl){rd.ws_col, rd.ws_row, rd.prompt_len, i}); 
+	cur_pos = get_curpos(line,
+		(t_readl){rd.ws_col, rd.ws_row, rd.prompt_len, i});
 	curs_newpos(cur_pos, oldpos, tc);
 	ft_putstr(tc->show_curs);
 }
 
-void	reprint(char *line, t_readl rd, t_capab *tc)
+void		reprint(char *line, t_readl rd, t_capab *tc)
 {
-	t_curpos	old_pos;
+	t_curpos	newpos;
+	t_curpos	curpos;
 
-	old_pos = get_curpos(line, rd);
-	bs_print(line, rd, tc);
 	ft_putstr(tc->hide_curs);
-	if (old_pos.x != rd.ws_col)
-		ft_putstr(tc->move_right);
-	else
-		to_next_line(tc, 1);
+	curpos = get_curpos(line, rd);
+	bs_print(line, rd, tc);
+	rd.curpos++;
+	newpos = get_curpos(line, rd);
 	ft_putstr(tc->show_curs);
+	curs_newpos(curpos, newpos, tc);
 }

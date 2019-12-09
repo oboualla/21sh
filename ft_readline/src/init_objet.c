@@ -6,7 +6,7 @@
 /*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/10 15:17:12 by oboualla          #+#    #+#             */
-/*   Updated: 2019/12/05 18:39:14 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/09 14:04:57 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,23 @@ static t_readl	init_readl(const char *prompt)
 	return (rl);
 }
 
+static char		*check_line(char *line, char *prompt, t_hist **lst)
+{
+	char *retline;
+
+	retline = ft_strdup(line);
+	if (retline && ft_strcmp(prompt, "dquote")
+		&& ft_strcmp(prompt, "pipe")
+		&& ft_strcmp(prompt, "heredoc"))
+	{
+		*save_objet(NULL) = NULL;
+		ctrl_c(&retline);
+		add_hist(ft_strdup(retline), lst);
+		stock_hist(lst);
+	}
+	return (retline);
+}
+
 char			*exit_readline(t_objet **objet, t_hist **lst, int flag)
 {
 	char *line;
@@ -36,18 +53,7 @@ char			*exit_readline(t_objet **objet, t_hist **lst, int flag)
 	ft_putchar('\n');
 	ft_putstr(tgetstr("cd", NULL));
 	if (flag == 1)
-	{
-		line = ft_strdup((*objet)->line);
-		if (line && ft_strcmp((*objet)->prompt, "dquote")
-			&& ft_strcmp((*objet)->prompt, "pipe")
-			&& ft_strcmp((*objet)->prompt, "heredoc"))
-		{
-			*save_objet(NULL) = NULL;
-			ctrl_c(&line);
-			add_hist(ft_strdup(line), lst);
-			stock_hist(lst);
-		}
-	}
+		line = check_line((*objet)->line, (*objet)->prompt, lst);
 	*save_objet(NULL) = NULL;
 	free_lsthist(lst);
 	ft_memdel((void**)&(*objet)->tc);

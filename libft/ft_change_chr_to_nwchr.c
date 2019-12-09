@@ -6,7 +6,7 @@
 /*   By: oboualla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 06:46:47 by oboualla          #+#    #+#             */
-/*   Updated: 2019/12/03 23:11:26 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/08 22:39:42 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	ft_change_chr_to_nwchr(char *chaine, char *chr, char nwchr)
 		j = 0;
 		while (chr[j])
 		{
-			if ((chaine[i] == chr[j] || !ft_isprint(chaine[i])))
+			if ((chaine[i] == chr[j] ||
+			!ft_isprint(chaine[i])) && chaine[i] != '\n')
 			{
 				chaine[i] = nwchr;
 				break ;

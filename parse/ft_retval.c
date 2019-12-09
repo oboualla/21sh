@@ -6,7 +6,7 @@
 /*   By: kbahrar <kbahrar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 16:15:06 by kbahrar           #+#    #+#             */
-/*   Updated: 2019/12/02 20:39:27 by kbahrar          ###   ########.fr       */
+/*   Updated: 2019/12/09 15:57:58 by kbahrar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,7 @@ int			ret_fd(char *str, int *i)
 		j++;
 	}
 	snum = ft_strsub(str, *i, j);
-	if (snum[0] == '-')
-		fd = -1;
-	else
-		fd = ft_atoi(snum);
+	fd = snum[0] == '-' ? -1 : ft_atoi(snum);
 	*i = j;
 	free(snum);
 	return (fd);
@@ -102,10 +99,7 @@ char		*ret_file(char *str, int *i)
 		}
 		j++;
 	}
-	if (tmp == 'n')
-		file = ft_strsub(str, *i, j);
-	else
-		file = ft_strsub(str, *i, j - 1);
+	file = tmp == 'n' ? ft_strsub(str, *i, j) : ft_strsub(str, *i, j - 1);
 	*i = j;
 	return (file);
 }

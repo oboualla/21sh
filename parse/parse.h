@@ -6,7 +6,7 @@
 /*   By: kbahrar <kbahrar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:37:32 by kbahrar           #+#    #+#             */
-/*   Updated: 2019/12/04 22:43:25 by kbahrar          ###   ########.fr       */
+/*   Updated: 2019/12/08 22:45:10 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct			s_parse
 	char				link;
 }						t_parse;
 
+int						check_child(int status);
 void					ctrl_c(char **line);
 char					***save_line(char **line);
 t_parse					*parse_line(char *line);

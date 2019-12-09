@@ -6,7 +6,7 @@
 /*   By: kbahrar <kbahrar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/23 19:18:15 by kbahrar           #+#    #+#             */
-/*   Updated: 2019/12/04 22:43:16 by kbahrar          ###   ########.fr       */
+/*   Updated: 2019/12/09 19:49:01 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@ static char	*join_str(char *read, char *str)
 	return (tmp);
 }
 
+char		*save_cmd(char *ncmd)
+{
+	static char *save = NULL;
+
+	if (ncmd)
+		save = ncmd;
+	return (save);
+}
+
 char		*ret_heredoc(char *name)
 {
 	char	*str;
@@ -37,7 +46,7 @@ char		*ret_heredoc(char *name)
 		if (!str)
 		{
 			*save_line(NULL) = NULL;
-			save_line(&read);
+			save_cmd(read);
 			return (NULL);
 		}
 		if (!read || !ft_strcmp(read, name))

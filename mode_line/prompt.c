@@ -6,11 +6,25 @@
 /*   By: kbahrar <kbahrar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/20 04:12:18 by oboualla          #+#    #+#             */
-/*   Updated: 2019/11/27 14:28:47 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/09 18:57:41 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../sh21.h"
+
+size_t	get_next_index(const char *cmd, size_t index)
+{
+	char	c;
+
+	c = cmd[index++];
+	while (cmd[index])
+	{
+		if (cmd[index] == c && cmd[index - 1] != '\\')
+			break ;
+		index++;
+	}
+	return (index);
+}
 
 char	**save_prompt(char *prompt)
 {

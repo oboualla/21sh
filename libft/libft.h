@@ -6,7 +6,7 @@
 /*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:28:30 by oboualla          #+#    #+#             */
-/*   Updated: 2019/12/03 22:53:05 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/08 16:04:18 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct			s_list
 	size_t				content_size;
 	struct s_list		*next;
 }						t_list;
-
+size_t					ft_strnchr_index(const char *str, char c, size_t n);
 size_t					ft_strchr_index(const char *str, char c);
 void					free_double(char ***tab);
 unsigned int			ft_getchr(void);

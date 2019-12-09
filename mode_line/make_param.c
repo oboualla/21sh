@@ -6,25 +6,11 @@
 /*   By: kbahrar <kbahrar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/16 16:53:13 by oboualla          #+#    #+#             */
-/*   Updated: 2019/12/05 03:46:05 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/09 16:06:40 by kbahrar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../sh21.h"
-
-static size_t	get_next_index(const char *cmd, size_t index)
-{
-	char	c;
-
-	c = cmd[index++];
-	while (cmd[index])
-	{
-		if (cmd[index] == c && cmd[index - 1] != '\\')
-			break ;
-		index++;
-	}
-	return (index);
-}
 
 static size_t	get_sizeparm(const char *cmd)
 {
@@ -57,7 +43,8 @@ static int		check_chr(char *src, size_t *j, size_t *balance)
 			return (0);
 		(*j)++;
 	}
-	else if (src[*j] == '\'' && (!*j || src[(*j) - 1] != '\\') && !((*balance) & 1))
+	else if (src[*j] == '\'' && (!*j ||
+	src[(*j) - 1] != '\\') && !((*balance) & 1))
 	{
 		*balance = ((*balance) > 0) ? 0 : 2;
 		if (!(*balance) && src[(*j) + 1] == ' ')

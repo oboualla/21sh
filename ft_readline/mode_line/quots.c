@@ -6,7 +6,7 @@
 /*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 22:20:10 by oboualla          #+#    #+#             */
-/*   Updated: 2019/11/29 17:51:58 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/09 19:38:46 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ static int	ft_quots(char **line)
 	char *tmp;
 
 	save_line(line);
-	if (!(comp = ft_readline("dquote")))
-		return (0);
+	comp = ft_readline("dquote");
 	if (!*line)
 	{
 		*line = comp;
@@ -38,11 +37,11 @@ static int	ft_quots(char **line)
 	}
 	tmp = comp;
 	comp = ft_strjoin("\n", tmp);
-	free(tmp);
+	ft_strdel(&tmp);
 	tmp = *line;
 	*line = ft_strjoin(tmp, comp);
-	free(tmp);
-	free(comp);
+	ft_strdel(&tmp);
+	ft_strdel(&comp);
 	*save_line(NULL) = NULL;
 	return (1);
 }
@@ -58,15 +57,12 @@ int			quots(char **line)
 		return (-1);
 	while ((*line)[i])
 	{
-		if (((*line)[i] == '"' && ((*line)[i - 1] != '\\')) && (!(balance & 1) && !(balance & 2)))
-			balance++;
-		else if (((*line)[i] == '"' && (*line)[i - 1] != '\\') && (balance & 1))
-			balance--;
-		if (((*line)[i] == '\'' && (*line)[i - 1] != '\\') && (!(balance & 2) && !(balance & 1)))
-			balance += 2;
-		else if (((*line)[i] == '\'' &&
-		(*line)[i - 1] != '\\') && (balance & 2))
-			balance -= 2;
+		if (((*line)[i] == '"' && (!i || (*line)[i - 1] != '\\'))
+			&& !(balance & 2))
+			balance = (balance > 0) ? 0 : 1;
+		else if (((*line)[i] == '\'' && (!i || (*line)[i - 1] != '\\')
+			&& !(balance & 1)))
+			balance = (balance > 0) ? 0 : 2;
 		i++;
 	}
 	if (balance > 0)

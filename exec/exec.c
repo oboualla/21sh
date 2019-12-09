@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kbahrar <kbahrar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/15 17:14:31 by kbahrar           #+#    #+#             */
-/*   Updated: 2019/12/05 16:52:09 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/09 20:19:35 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,36 @@
 
 static int	commandes2(char **env, char **args)
 {
-	if (ft_strcmp(args[0], "/usr/bin/env") == 0 ||
-	ft_strcmp(args[0], "env") == 0)
+	if (!ft_strcmp(args[0], "env"))
 		show_env(env);
-	else if (ft_strcmp(args[0], "/bin/echo") == 0 ||
-	ft_strcmp(args[0], "echo") == 0)
+	else if (!ft_strcmp(args[0], "echo"))
 		ft_echo(args);
-	else if (ft_strchr(args[0], '/') == NULL)
-	{
-		ft_putstr_fd(args[0], 2);
-		ft_putstr_fd(": command not found.\n", 2);
-	}
 	else
-		return (0);
+	{
+		args[0] = access_file(env, args[0]);
+		if (!ft_strchr(args[0], '/'))
+		{
+			ft_putstr_fd(args[0], 2);
+			ft_putendl_fd(" : commande not found", 2);
+		}
+		else
+			return (0);
+	}
 	return (1);
 }
 
 static int	commandes(char **env, char **args, t_vars **vars)
 {
-	if (ft_strcmp(args[0], "/usr/bin/cd") == 0 ||
-		ft_strcmp(args[0], "cd") == 0)
+	if (!ft_strcmp(args[0], "cd"))
 		do_cd(args, env, vars);
-	else if (ft_strcmp("setenv", args[0]) == 0)
+	else if (!ft_strcmp("setenv", args[0]))
 	{
 		if (args[1])
 			ft_setenv(args, vars);
 		else
 			show_env(env);
 	}
-	else if (ft_strcmp(args[0], "unsetenv") == 0)
+	else if (!ft_strcmp(args[0], "unsetenv"))
 		ft_unsetenv(args, vars);
 	else if (commandes2(env, args) == 0)
 		return (0);
@@ -71,20 +72,10 @@ static void	for_norm(int flag, t_parse **prs, char **cmd, char **env)
 		if (flag == -2)
 			*prs = (*prs)->next;
 	}
-	else
-	{
-		if (WTERMSIG(flag) == SIGSEGV)
-			ft_putendl_fd("Segmentation fault", 2);
-		if (WTERMSIG(flag) == SIGABRT)
-			ft_putendl_fd("Aborted", 2);
-	}
 }
 
 static void	ft_exceve(t_parse *prs, char **cmd, char **env, int p0)
 {
-	int status;
-
-	status = 0;
 	if (!fork())
 	{
 		if (p0 != -1)
@@ -104,9 +95,9 @@ static void	ft_exceve(t_parse *prs, char **cmd, char **env, int p0)
 		ft_retfd(0);
 		if (prs->link != 'p')
 		{
-			while (wait(&status) > 0)
+			while (wait(&p0) > 0)
 				;
-			for_norm(status, NULL, NULL, NULL);
+			check_child(p0);
 		}
 	}
 }
@@ -131,11 +122,8 @@ void		exec(t_parse *prs, t_vars **vars)
 			continue ;
 		}
 		if (cmd && cmd[0])
-		{
-			cmd[0] = access_file(env, cmd[0]);
-			if (commandes(env, cmd, vars) == 0)
+			if (!commandes(env, cmd, vars))
 				ft_exceve(prs, cmd, env, p0);
-		}
 		for_norm(-2, &prs, cmd, env);
 	}
 	ft_retfd(3);

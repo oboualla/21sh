@@ -6,11 +6,20 @@
 /*   By: kbahrar <kbahrar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/17 20:23:33 by kbahrar           #+#    #+#             */
-/*   Updated: 2019/11/24 17:12:10 by kbahrar          ###   ########.fr       */
+/*   Updated: 2019/12/09 15:53:26 by kbahrar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../parse/parse.h"
+
+int			check_child(int status)
+{
+	if (WTERMSIG(status) == SIGSEGV)
+		ft_putendl_fd("Segmentation fault", 2);
+	else if (WTERMSIG(status) == SIGABRT)
+		ft_putendl_fd("Aborted", 2);
+	return (1);
+}
 
 void		ft_retfd(int flag)
 {
@@ -71,9 +80,6 @@ int			ft_pipehelp(t_parse *prs)
 		p0 = ft_pipe(p0);
 	if (prs->link == 'p' || heredoc)
 		p0 = ft_pipe(-1);
-	if (prs->red != NULL)
-		if (ft_redirec(prs->red) == -1)
-			return (-5);
 	if (heredoc != NULL)
 	{
 		ft_putstr(heredoc);
@@ -82,5 +88,8 @@ int			ft_pipehelp(t_parse *prs)
 		ft_retfd(2);
 		return (-2);
 	}
+	if (prs->red != NULL)
+		if (ft_redirec(prs->red) == -1)
+			return (-5);
 	return (p0);
 }

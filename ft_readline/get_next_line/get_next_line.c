@@ -6,7 +6,7 @@
 /*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 22:47:43 by oboualla          #+#    #+#             */
-/*   Updated: 2019/11/29 20:56:14 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/09 13:55:49 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 
 static int		ft_make_line(char **rest, char **line, char *sep)
 {
-	char *ptr;
-	int i;
+	char	*ptr;
+	int		i;
 
 	i = 0;
 	if (!*rest)
 		return (0);
 	while ((*rest)[i] && sep[i] && (*rest)[i] == sep[i])
-		    i++;
+		i++;
 	if (!(ptr = ft_strstr(&(*rest)[i], sep)))
 	{
 		*line = ft_strdup(&(*rest)[i]);

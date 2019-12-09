@@ -6,7 +6,7 @@
 /*   By: kbahrar <kbahrar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/28 03:35:04 by oboualla          #+#    #+#             */
-/*   Updated: 2019/12/05 03:34:03 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/09 19:01:55 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ static int		take_key(char buff[], t_objet *objet, t_capab *tc, t_hist **lst)
 	}
 	else if (cast == '\t')
 		auto_c(objet);
-	else if (cast == 4 && !objet->line[0])
+	else if (cast == 4 && !objet->line[0] &&
+		ft_strcmp(objet->prompt, "dquote") && ft_strcmp(objet->prompt, "pipe"))
 		return (0);
 	else if (cast == ALT_C)
 		alt_c(objet);

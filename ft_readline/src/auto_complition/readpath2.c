@@ -6,7 +6,7 @@
 /*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/25 14:32:54 by oboualla          #+#    #+#             */
-/*   Updated: 2019/12/05 04:13:05 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/09 14:59:24 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	access_file(char *file, char *path, t_ushort mode)
 {
 	char	*pfile;
 	t_stat	st;
-	int ret;
+	int		ret;
 
 	ret = 0;
 	if (!(pfile = ft_strnew(ft_strlen(file) + ft_strlen(path) + 1)))
@@ -52,8 +52,8 @@ static void	change_dname(char *d_name)
 	d_name[i + 1] = '\0';
 	ft_strcat(d_name, rest);
 	ft_strdel(&rest);
-	if ((i = ft_strchr_index(d_name, ' ')))
-		change_dname(d_name);
+	if ((i = ft_strchr_index(&d_name[i + 2], ' ')))
+		change_dname(&d_name[i + 2]);
 }
 
 static int	condition_(char *d_name, char *file, char *path, t_ushort mode)

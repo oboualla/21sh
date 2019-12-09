@@ -6,7 +6,7 @@
 /*   By: oboualla <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/13 17:55:26 by oboualla          #+#    #+#             */
-/*   Updated: 2019/12/04 07:18:05 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/09 15:00:05 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,21 @@ static void	alt_r(t_objet *obj)
 
 static void	alt_p(t_objet *obj)
 {
-	t_curpos curpos;
-	t_curpos newpos;
+	t_curpos	curpos;
+	t_curpos	newpos;
+	size_t		n;
 
+	n = 0;
 	curpos = get_curpos(obj->line, obj->rd);
 	if (curpos.y > 1)
 	{
-		if (obj->rd.curpos < obj->rd.ws_col)
-			obj->rd.curpos = 0;
-		else
-			obj->rd.curpos -= obj->rd.ws_col;
+		while (obj->rd.curpos && (n < (obj->rd.ws_col + 1)))
+		{
+			obj->rd.curpos--;
+			n++;
+			if (obj->line[obj->rd.curpos] == '\n')
+				break ;
+		}
 		newpos = get_curpos(obj->line, obj->rd);
 		curs_newpos(curpos, newpos, obj->tc);
 	}
@@ -80,20 +85,23 @@ static void	alt_d(t_objet *obj)
 	t_curpos	endpos;
 	t_curpos	newpos;
 	t_readl		rd;
+	size_t		n;
 
+	n = 0;
 	rd = obj->rd;
 	curpos = get_curpos(obj->line, obj->rd);
 	rd.curpos = ft_strlen(obj->line);
 	endpos = get_curpos(obj->line, rd);
 	if (curpos.y < endpos.y)
 	{
-		obj->rd.curpos += rd.ws_col;
-		newpos = get_curpos(obj->line, obj->rd);
-		if ((newpos.y == endpos.y) && (endpos.x < newpos.x))
+		while (obj->line[obj->rd.curpos] && (n < obj->rd.ws_col + 1))
 		{
-			newpos.x = endpos.x;
-			obj->rd.curpos = rd.curpos;
+			obj->rd.curpos++;
+			n++;
+			if (obj->line[obj->rd.curpos] == '\n')
+				break ;
 		}
+		newpos = get_curpos(obj->line, obj->rd);
 		curs_newpos(curpos, newpos, obj->tc);
 	}
 	else

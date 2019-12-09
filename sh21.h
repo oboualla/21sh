@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh21.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oboualla <oboualla@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kbahrar <kbahrar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/21 16:51:12 by oboualla          #+#    #+#             */
-/*   Updated: 2019/12/05 13:53:21 by oboualla         ###   ########.fr       */
+/*   Updated: 2019/12/09 19:48:45 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define BGREEN "\033[1;32m"
 # define BBLUE "\033[1;36m\033[4;36m"
 
+char			*save_cmd(char *ncmd);
 void			ctrl_c(char **line);
 t_vars			*get_lstvars(t_vars **lst);
 char			*prompt(void);
@@ -44,4 +45,5 @@ void			free_sh(char **env, char **args, t_vars **vars);
 void			free_list(t_vars **vars);
 void			ft_freeall(char **line, char **read, t_parse *prs);
 void			show_env(char **env);
+size_t			get_next_index(const char *cmd, size_t index);
 #endif

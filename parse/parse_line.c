@@ -6,7 +6,7 @@
 /*   By: kbahrar <kbahrar@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/07 13:42:49 by kbahrar           #+#    #+#             */
-/*   Updated: 2019/11/27 16:09:18 by kbahrar          ###   ########.fr       */
+/*   Updated: 2019/12/09 19:55:35 by oboualla         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,9 @@ static t_parse	*new_parse(char *str, int *i)
 	}
 	if (make_red(&parse->cmd, &parse->red) < 0)
 	{
-		if (save_line(NULL) && *save_line(NULL))
+		if (save_cmd(NULL))
 		{
-			str = **save_line(NULL);
-			*save_line(NULL) = NULL;
+			str = save_cmd(NULL);
 			ctrl_c(&str);
 			return (parse_line(str));
 		}
